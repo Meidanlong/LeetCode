@@ -1,6 +1,9 @@
 package easy.arrary;
 
 
+import java.util.ArrayList;
+import java.util.Queue;
+
 /**
  * 旋转图像
  *
@@ -49,7 +52,39 @@ package easy.arrary;
  */
 public class RotateViewSolution {
 
-    public void rotate(int[][] matrix) {
+    public int[][] rotate(int[][] matrix) {
 
+        int length = matrix.length;
+        int index = 0;
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i=1; i<length; i++){
+            for(int j=i-1; j>=0;j--){
+                list.add(matrix[j][i]);
+            }
+        }
+        for(int i=0; i<length; i++){
+            for(int j=i; j<length; j++){
+                matrix[i][length-1-j]=matrix[j][i];
+            }
+            if(i>0){
+                for(int k=length-1-i; k<length-1; k++){
+                    matrix[i][k+1] = list.get(index++);
+                }
+            }
+        }
+        return matrix;
+    }
+
+    public static void main(String[] args) {
+        int[][] arr = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
+        RotateViewSolution rotateViewSolution = new RotateViewSolution();
+        arr = rotateViewSolution.rotate(arr) ;
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                System.out.print(arr[i][j]);
+            }
+            System.out.println();
+        }
+        ;
     }
 }

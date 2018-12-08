@@ -1,5 +1,7 @@
 package easy.arrary;
 
+import java.util.ArrayList;
+
 /**
  * 移动零
  * <p>
@@ -19,7 +21,56 @@ package easy.arrary;
 public class MoveZeroesSolution {
 
     public void moveZeroes(int[] nums) {
+        int index = nums.length;//是末尾第一个不为零的数字的索引
+        while(index>0 && nums[index-1] == 0 ){
+            index --;
+        }
+        if(index > 0){
+            for(int i=0; i<index; i++){
+                if(nums[i] == 0){
+                    for(int j=i; j<index-1; j++){
+                        nums[j] = nums[j+1];
+                    }
+                    nums[index-1] = 0;
+                    index--;
+                    i--;
+                }
+            }
+        }
 
+    }
+    public void moveZeroes1(int[] nums) {
+        int zeroNum = 0;
+        int index = nums.length;
+        int head = 0;
+
+         while(nums != null && index > 0 && head <= index-1 - zeroNum){
+             if(zeroNum > 0){
+                 nums[head] = nums[head+zeroNum];
+                 if(nums[head] == 0){
+                     zeroNum++;
+                 }else{
+                     head++;
+                 }
+             }else{
+                 if(nums[head] == 0){
+                     zeroNum++;
+                 }else{
+                     head++;
+                 }
+             }
+         }
+
+         for(int j=0;j<zeroNum;j++){
+             nums[index-1] = 0;
+             index--;
+         }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {0,1,0,3,12};
+        MoveZeroesSolution moveZeroesSolution = new MoveZeroesSolution();
+        moveZeroesSolution.moveZeroes1(arr);
     }
 
 }
