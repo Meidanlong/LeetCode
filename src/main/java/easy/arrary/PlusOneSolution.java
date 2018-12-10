@@ -26,7 +26,56 @@ package easy.arrary;
 public class PlusOneSolution {
 
     public int[] plusOne(int[] digits) {
+        return plusone(digits,digits.length);
+    }
 
-        return null;
+    public int[] plusone(int[] arr,int index){
+        if(index == 0){
+            int[] result = new int[arr.length+1];
+            result[0] = 1;
+            return  result;
+        }
+
+        int num = arr[index-1]+1;
+        if(num > 9){
+            arr[index-1] = 0;
+            index--;
+            return plusone(arr,index);
+        }else{
+            arr[index-1] = num;
+            return arr;
+        }
+    }
+
+    public int[] plusOne1(int[] digits) {
+        int index = digits.length;
+        boolean isContinue = true;
+        while(index >= 0 && isContinue){
+            if(index == 0){
+                int[] result = new int[digits.length+1];
+                result[0] = 1;
+                return  result;
+            }
+
+            int num = digits[index-1] + 1;
+            if(num > 9){
+                digits[--index] = 0;
+                isContinue = true;
+            }else{
+                digits[index-1] = num;
+                isContinue = false;
+            }
+        }
+        return digits;
+    }
+
+    public static void main(String[] args) {
+
+        int[] arr = {1,2,3};
+//        int[] arr = {9,9};
+        PlusOneSolution plusOneSolution = new PlusOneSolution();
+        for(int i : plusOneSolution.plusOne1(arr))
+            System.out.println(i);
+
     }
 }
