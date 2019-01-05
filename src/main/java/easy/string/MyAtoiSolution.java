@@ -19,7 +19,7 @@ package easy.string;
  *
  * 说明：
  *
- * 假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231,  231 − 1]。如果数值超过这个范围，qing返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。
+ * 假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−2^31,  2^31 − 1]。如果数值超过这个范围，qing返回  INT_MAX (2^31 − 1) 或 INT_MIN (−2^31) 。
  *
  * 示例 1:
  *
@@ -53,6 +53,99 @@ public class MyAtoiSolution {
 
     public int myAtoi(String str) {
 
-        return 0;
+        if(null == str || "".equals(str.trim()) || !('-' == str.trim().charAt(0)||'+' == str.trim().charAt(0)|| ('0'<=str.trim().charAt(0) && '9'>=str.trim().charAt(0))))
+            return 0;
+
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        for(char i:str.trim().toCharArray()){
+            if(index > 0 && '-' == i)
+                return 0;
+            if(!('-' == i||'+' == i|| ('0'<=i && '9'>=i))){
+                break;
+            }else{
+                if('+' != i&&!(index == 0&&'0' == i)){
+                    sb.append(i);
+                    index++;
+                }
+            }
+        }
+
+        if("-".equals(sb.toString())||"".equals(sb.toString()))
+            return 0;
+
+        if('-' == sb.toString().charAt(0) && sb.toString().length()>String.valueOf(Integer.MIN_VALUE).length())
+            return Integer.MIN_VALUE;
+        else if('-' != sb.toString().charAt(0) && sb.toString().length()>String.valueOf(Integer.MAX_VALUE).length())
+            return Integer.MAX_VALUE;
+
+
+        long result = Long.valueOf(sb.toString());
+        if(result > Integer.MAX_VALUE){
+            return Integer.MAX_VALUE;
+        }else if(result < Integer.MIN_VALUE){
+            return Integer.MIN_VALUE;
+        }else{
+            return (int)result;
+        }
+
+    }
+
+    public int myAtoi1(String str) {
+        try{
+            String afterTrim = str.trim();
+            char first = afterTrim.charAt(0);
+            if('-' == first||'+' == first){
+                afterTrim = afterTrim.substring(1);
+            }else if('0'<=first && first<='9'){
+                first = '+';
+            }else{
+                return 0;
+            }
+            if(afterTrim.length()==0)
+                throw new Exception();
+
+
+            boolean isFirstChar = true;
+            StringBuilder sb = new StringBuilder();
+            if('-' == first)
+                sb.append('-');
+            for(char i:afterTrim.toCharArray()){
+                if(isFirstChar && '0'==i){
+                    continue;
+                }else if(isFirstChar && !('1'<=i && '9'>=i)){
+                    return 0;
+                }else if(!isFirstChar && !('0'<=i && '9'>=i)){
+                    break;
+                }else{
+                    sb.append(i);
+                    isFirstChar = false;
+                }
+            }
+
+            if('-' == sb.toString().charAt(0) && sb.toString().length()>String.valueOf(Integer.MIN_VALUE).length())
+                return Integer.MIN_VALUE;
+            else if('-' != sb.toString().charAt(0) && sb.toString().length()>String.valueOf(Integer.MAX_VALUE).length())
+                return Integer.MAX_VALUE;
+
+
+            long result = Long.valueOf(sb.toString());
+            if(result > Integer.MAX_VALUE){
+                return Integer.MAX_VALUE;
+            }else if(result < Integer.MIN_VALUE){
+                return Integer.MIN_VALUE;
+            }else{
+                return (int)result;
+            }
+
+
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        MyAtoiSolution myAtoiSolution = new MyAtoiSolution();
+        System.out.println(myAtoiSolution.myAtoi1("+-2"));
     }
 }
