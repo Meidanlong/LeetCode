@@ -33,6 +33,61 @@ public class CountAndSaySolution {
 
     public String countAndSay(int n) {
 
-        return null;
+        StringBuilder initString = new StringBuilder("1");//初始化的字符串,注：已经初始化，代表第一步已经完成,之后遍历到n-1即可
+        char[] initStringCharArray = null;
+        int count = 1;
+
+
+        for(int i=0; i<n-1; i++){
+            initStringCharArray = initString.toString().toCharArray();
+            StringBuilder resultString = new StringBuilder();//接受改变之后的结果的字符串
+            for(int j=0; j<initStringCharArray.length; j++){//选择分情况讨论的方法
+                if(j<initStringCharArray.length-1 && initStringCharArray[j] == initStringCharArray[j+1]){
+                    count++;
+                }else{
+                    resultString.append(count).append(initStringCharArray[j]);
+                    count = 1;//每次遍历完将count置为初始值
+                }
+            }
+            initString = resultString;
+        }
+
+        return initString.toString();
+    }
+
+    public String countAndSay1(int n) {
+        String a="1";
+        for (int i = 1; i < n; i++) {
+            a=changString(a);
+        }
+        return a;
+    }
+
+    private String changString(String a) {
+        char[] chars=a.toCharArray();
+        char cur=' ';
+
+        StringBuilder builder=new StringBuilder();
+        int num=0;
+        for (int i = 0; i < chars.length; i++) {
+            if(cur==chars[i]){
+                num++;
+            }else {
+                if (num!=0){
+                    builder.append(num);
+                    builder.append(cur);
+                }
+                num=1;
+                cur=chars[i];
+            }
+        }
+        builder.append(num);
+        builder.append(cur);
+        return builder.toString();
+    }
+
+    public static void main(String[] args) {
+        CountAndSaySolution countAndSaySolution = new CountAndSaySolution();
+        System.out.println(countAndSaySolution.countAndSay1(6));
     }
 }
