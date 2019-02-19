@@ -91,7 +91,7 @@ public class RemoveNthFromEndSulotion {
     public static void main(String[] args) {
         ListNode nextNode = null;
         ListNode head = null;
-        for(int i=3; i>0; i--){
+        for(int i=5; i>=1; i--){
             ListNode currentNode = new ListNode(i);
             currentNode.next = nextNode;
             nextNode = currentNode;
@@ -104,11 +104,11 @@ public class RemoveNthFromEndSulotion {
         ListNode returnCurrentNode = removeNthFromEndSulotion.removeNthFromEnd(head,1);
 
         while(returnCurrentNode != null){
-            if(returnCurrentNode.val == 1){
+            if(returnCurrentNode.next == null){
                 System.out.print(returnCurrentNode.val);
             }else{
-                System.out.print("->");
                 System.out.print(returnCurrentNode.val);
+                System.out.print("->");
             }
 
             returnCurrentNode = returnCurrentNode.next;
