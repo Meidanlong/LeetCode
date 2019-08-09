@@ -2,8 +2,6 @@ package easy.tree;
 
 
 import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.concurrent.BlockingDeque;
 
 /**
  * 将有序数组转换为二叉搜索树
@@ -25,7 +23,7 @@ import java.util.concurrent.BlockingDeque;
  *    /   /
  *  -10  5
  */
-public class SortedArrayToBST {
+public class SortedArrayToBSTSolution {
 
     public class TreeNode {
       int val;
@@ -53,7 +51,7 @@ public class SortedArrayToBST {
 
     public static void main(String[] args) {
         int[] arr = {0,1,2,3,4,5,6,7,8,9,10};
-        SortedArrayToBST sortedArrayToBST = new SortedArrayToBST();
+        SortedArrayToBSTSolution sortedArrayToBST = new SortedArrayToBSTSolution();
         TreeNode treeNode = sortedArrayToBST.sortedArrayToBST(arr);
         ArrayDeque arrayDeque = new ArrayDeque();
         arrayDeque.addLast(treeNode);
