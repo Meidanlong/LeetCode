@@ -1,4 +1,4 @@
-package easy.tree;
+package easy.recursion;
 
 import java.util.ArrayList;
 import java.util.List;
