@@ -69,13 +69,14 @@ public class IsSymmetricSolution {
         root.left = new TreeNode(2);
         root.right = new TreeNode(2);
         root.left.left = new TreeNode(2);
-        //root.left.right = new TreeNode(3);
+//        root.left.right = new TreeNode(3);
+        root.left.right = null;
         root.right.left = new TreeNode(2);
         //root.right.right = new TreeNode(3);
 
 
         IsSymmetricSolution isSymmetricSolution = new IsSymmetricSolution();
-        System.out.println(isSymmetricSolution.isSymmetric(root));
+        System.out.println(isSymmetricSolution.isSymmetric2(root));
     }
 
     public boolean isSymmetric2(TreeNode root) {
@@ -84,9 +85,11 @@ public class IsSymmetricSolution {
 
     private boolean isSymmetric2Recursion(TreeNode rootLeft,TreeNode rootRight){
         if(rootLeft == null && rootRight == null) return true;
+        //两值不同时为null
         if(rootLeft == null || rootRight == null) return false;
 
         return (rootLeft.val == rootRight.val)
+                //若不符合条件则直接短路返回false
                 && isSymmetric2Recursion(rootLeft.right, rootRight.left)
                 && isSymmetric2Recursion(rootLeft.left, rootRight.right);
     }
